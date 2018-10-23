@@ -1,5 +1,8 @@
 import React from 'react';
+import { omit } from 'lodash';
 import elementType from 'react-prop-types/lib/elementType';
+
+import disallowedProps from './disallowedProps';
 
 function isTrivialHref(href) {
   return (
@@ -37,9 +40,11 @@ export default class SafeAnchor extends React.Component {
       style = { pointerEvents: 'none', ...style };
     }
 
+    const allowedProps = omit(props, disallowedProps[Component]);
+
     return (
       <Component
-        {...props}
+        {...allowedProps}
         role={role}
         href={href}
         style={style}

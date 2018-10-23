@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import keycode from 'keycode';
 import React, { cloneElement } from 'react';
+import { omit } from 'lodash';
 import ReactDOM from 'react-dom';
 import all from 'react-prop-types/lib/all';
 import warning from 'warning';
@@ -11,6 +12,8 @@ import {
 import chain from './utils/createChainedFunction';
 import { nextEnabled, TAB, PANE } from './utils/tabUtils';
 import ValidComponentChildren from './utils/ValidComponentChildren';
+
+import disallowedProps from './disallowedProps';
 
 class Nav extends React.Component {
 
@@ -52,9 +55,11 @@ class Nav extends React.Component {
       classes['pull-left'] = this.props.pullLeft;
     }
 
+    const allowedProps = omit(this.props, disallowedProps['ul']);
+
     let list = (
       <ul ref="ul"
-        {...this.props}
+        {...allowedProps}
         role={this.getNavRole()}
         className={classNames(className, classes)}
       >
