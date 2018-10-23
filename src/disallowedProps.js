@@ -1,6 +1,6 @@
 const disallowedProps = {
-  a: ['activeHref', 'navItem'],
-  ul: ['bsStyle', 'stacked', 'activeKey', 'justified', 'pullRight', 'pullLeft', 'bsClass'],
+  a: ['activeHref', 'activeKey', 'navItem'],
+  ul: ['bsStyle', 'stacked', 'activeKey', 'justified', 'pullRight', 'pullLeft', 'bsClass', `items`, `activePage`, `maxButtons`, `prev`, `next`, `ellipsis`, `boundaryLinks`, `first`, `last`],
 };
 
 export default disallowedProps;

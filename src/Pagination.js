@@ -1,11 +1,14 @@
 import classNames from 'classnames';
 import React from 'react';
+import { omit } from 'lodash';
 import elementType from 'react-prop-types/lib/elementType';
 
 import { bsClass, getClassSet } from './utils/bootstrapUtils';
 
 import PaginationButton from './PaginationButton';
 import SafeAnchor from './SafeAnchor';
+
+import disallowedProps from './disallowedProps';
 
 const Pagination = React.createClass({
 
@@ -264,9 +267,10 @@ const Pagination = React.createClass({
   },
 
   render() {
+    const allowedProps = omit(this.props, disallowedProps['ul']);
     return (
       <ul
-        {...this.props}
+        {...allowedProps}
         className={classNames(this.props.className, getClassSet(this.props))}
       >
         {this.renderFirst()}
