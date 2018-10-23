@@ -1,9 +1,12 @@
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
+import { omit } from 'lodash';
 
 import NavContext from './NavContext';
 import SelectableContext, { makeEventKey } from './SelectableContext';
+
+import disallowedProps from './disallowedProps';
 
 const propTypes = {
   active: PropTypes.bool,
@@ -59,9 +62,11 @@ class AbstractNavItem extends React.Component {
                 props['aria-selected'] = isActive;
               }
 
+              const allowedProps = omit(props, disallowedProps);
+
               return (
                 <Component
-                  {...props}
+                  {...allowedProps}
                   className={classNames(className, isActive && 'active')}
                   onClick={e => {
                     const { onClick } = this.props;
