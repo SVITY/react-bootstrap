@@ -1,10 +1,13 @@
 import classNames from 'classnames';
 import React from 'react';
+import { omit } from 'lodash';
 import deprecated from 'react-prop-types/lib/deprecated';
 
 import { Sizes } from './styleMaps';
 import { bsClass, bsSizes, getClassSet } from './utils/bootstrapUtils';
 import ValidComponentChildren from './utils/ValidComponentChildren';
+
+import disallowedProps from './disallowedProps';
 
 const propTypes = {
   /**
@@ -86,8 +89,10 @@ class FormGroup extends React.Component {
       classes[`has-${validationState}`] = true;
     }
 
+    const allowedProps = omit(props, disallowedProps['div']);
+
     return (
-      <div {...props} className={classNames(className, classes)}>
+      <div {...allowedProps} className={classNames(className, classes)}>
         {children}
       </div>
     );

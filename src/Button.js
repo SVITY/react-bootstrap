@@ -1,6 +1,9 @@
 import classNames from 'classnames';
 import React from 'react';
+import { omit } from 'lodash';
 import elementType from 'react-prop-types/lib/elementType';
+
+import disallowedProps from './disallowedProps';
 
 import { Sizes, State, DEFAULT, PRIMARY, LINK } from './styleMaps';
 import {
@@ -60,9 +63,11 @@ class Button extends React.Component {
   renderButton(classes) {
     let Component = this.props.componentClass || 'button';
 
+    const allowedProps = omit(this.props, disallowedProps[Component]);
+
     return (
       <Component
-        {...this.props}
+        {...allowedProps}
         type={this.props.type || 'button'}
         className={classNames(this.props.className, classes)}>
         {this.props.children}

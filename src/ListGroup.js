@@ -1,7 +1,10 @@
 import React, { cloneElement } from 'react';
+import { omit } from 'lodash';
 import ListGroupItem from './ListGroupItem';
 import classNames from 'classnames';
 import ValidComponentChildren from './utils/ValidComponentChildren';
+
+import disallowedProps from './disallowedProps';
 
 class ListGroup extends React.Component {
   render() {
@@ -56,10 +59,10 @@ class ListGroup extends React.Component {
     let listItems = ValidComponentChildren.map(items,
       (item) => cloneElement(item, { listItem: true })
     );
-
+    const allowedProps = omit(this.props, disallowedProps['ul']);
     return (
       <ul
-        {...this.props}
+        {...allowedProps}
         className={classNames(this.props.className, 'list-group')}>
         {listItems}
       </ul>
@@ -67,9 +70,10 @@ class ListGroup extends React.Component {
   }
 
   renderDiv(items) {
+    const allowedProps = omit(this.props, disallowedProps['div']);
     return (
       <div
-        {...this.props}
+        {...allowedProps}
         className={classNames(this.props.className, 'list-group')}>
         {items}
       </div>

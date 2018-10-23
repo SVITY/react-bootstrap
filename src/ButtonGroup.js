@@ -1,10 +1,13 @@
 import classNames from 'classnames';
 import React from 'react';
+import { omit } from 'lodash';
 import all from 'react-prop-types/lib/all';
 
 import { bsClass, getClassSet, prefix } from './utils/bootstrapUtils';
 
 import Button from './Button';
+
+import disallowedProps from './disallowedProps';
 
 const ButtonGroup = React.createClass({
 
@@ -43,9 +46,11 @@ const ButtonGroup = React.createClass({
     // this is annoying, since the class is `btn-block` not `btn-group-block`
     classes[prefix(Button.defaultProps, 'block')] = this.props.block;
 
+    const allowedProps = omit(this.props, disallowedProps['div']);
+
     return (
       <div
-        {...this.props}
+        {...allowedProps}
         className={classNames(this.props.className, classes)}
       >
         {this.props.children}

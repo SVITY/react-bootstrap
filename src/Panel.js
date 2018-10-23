@@ -1,12 +1,14 @@
 import classNames from 'classnames';
 import React, { cloneElement } from 'react';
-
+import { omit } from 'lodash';
 import { State, PRIMARY, DEFAULT } from './styleMaps';
 import {
   bsStyles, bsClass, getClassSet, prefix,
 } from './utils/bootstrapUtils';
 
 import Collapse from './Collapse';
+
+import disallowedProps from './disallowedProps';
 
 let Panel = React.createClass({
 
@@ -70,8 +72,9 @@ let Panel = React.createClass({
 
   render() {
     let {headerRole, panelRole, ...props} = this.props;
+    const allowedProps = omit(props, disallowedProps['div']);
     return (
-      <div {...props}
+      <div {...allowedProps}
         className={classNames(this.props.className, getClassSet(this.props))}
         id={this.props.collapsible ? null : this.props.id} onSelect={null}
       >
